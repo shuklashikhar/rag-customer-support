@@ -1,5 +1,9 @@
 import { Router } from 'express'
+import { authenticate } from '../middlewares/authenticate.middleware'
+
 const router = Router()
+
+router.use(authenticate)
 
 router.get('/', (req, res) => {
   res.json({ success: true, message: 'list conversations - coming soon' })

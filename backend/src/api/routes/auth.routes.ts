@@ -1,20 +1,14 @@
 import { Router } from 'express'
+import { authController } from '../controllers/auth.controller'
+import { validate } from '../middlewares/validate.middleware'
+import { authenticate } from '../middlewares/authenticate.middleware'
+import { registerSchema, loginSchema } from '../validators/auth.validator'
+
 const router = Router()
 
-router.post('/register', (req, res) => {
-  res.json({ success: true, message: 'register - coming soon' })
-})
-
-router.post('/login', (req, res) => {
-  res.json({ success: true, message: 'login - coming soon' })
-})
-
-router.post('/logout', (req, res) => {
-  res.json({ success: true, message: 'logout - coming soon' })
-})
-
-router.get('/me', (req, res) => {
-  res.json({ success: true, message: 'me - coming soon' })
-})
+router.post('/register', validate(registerSchema), authController.register)
+router.post('/login', validate(loginSchema), authController.login)
+router.post('/logout', authController.logout)
+router.get('/me', authenticate, authController.me)
 
 export default router

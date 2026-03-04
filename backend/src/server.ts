@@ -1,10 +1,17 @@
 import app from './app'
 import { config } from './config/index'
 import { logger } from './utils/logger'
+import { connectDatabase } from './config/database'
 
 const PORT = parseInt(config.PORT)
 
-app.listen(PORT, () => {
-  logger.info(`🚀 Server running on http://localhost:${PORT}`)
-  logger.info(`📦 Environment: ${config.NODE_ENV}`)
-})
+const start = async () => {
+  await connectDatabase()
+
+  app.listen(PORT, () => {
+    logger.info(`🚀 Server running on http://localhost:${PORT}`)
+    logger.info(`📦 Environment: ${config.NODE_ENV}`)
+  })
+}
+
+start()

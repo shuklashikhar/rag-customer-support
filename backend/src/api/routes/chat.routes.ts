@@ -1,7 +1,9 @@
 import { Router } from 'express'
+import { authenticate } from '../middlewares/authenticate.middleware'
+
 const router = Router()
 
-router.post('/', (req, res) => {
+router.post('/', authenticate, (req, res) => {
   res.json({ success: true, message: 'chat - coming soon' })
 })
 
