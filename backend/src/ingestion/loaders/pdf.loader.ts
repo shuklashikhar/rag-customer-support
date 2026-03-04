@@ -25,7 +25,14 @@ export class PDFLoader implements ILoader {
         .join(' ')
       pages.push(pageText)
     }
+   const text = pages.join('\n')
 
-    return pages.join('\n')
+// Fix words split across lines like "W\ne offer" → "We offer"
+const fixed = text
+  .replace(/([a-z])\n([a-z])/g, '$1$2')   // rejoin split words
+  .replace(/\$\s*\n/g, '$')               // fix "$ \n100" → "$100"
+
+
+return fixed
   }
 }

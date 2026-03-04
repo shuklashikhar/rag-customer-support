@@ -11,7 +11,7 @@ import { logger } from '../utils/logger'
 const BATCH_SIZE = 10
 
 export class IngestionPipeline {
-  private chunker = new RecursiveChunker({ chunkSize: 512, overlap: 64 })
+  private chunker = new RecursiveChunker({ chunkSize: 300, overlap: 50 })
 
   constructor(
     private embedder: IEmbedder,

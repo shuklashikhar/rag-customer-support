@@ -1,9 +1,10 @@
 export const preprocessText = (text: string): string => {
   return text
-    .replace(/\r\n/g, '\n')           // normalize line endings
-    .replace(/\t/g, ' ')              // tabs to spaces
-    .replace(/\n{3,}/g, '\n\n')       // max 2 consecutive newlines
-    .replace(/[ ]{2,}/g, ' ')         // multiple spaces to one
-    .replace(/[^\x20-\x7E\n]/g, '')   // remove non-printable chars
+    .replace(/\r\n/g, '\n')
+    .replace(/\t/g, ' ')
+    // Add line break before numbered sections like "1." "2." etc
+    .replace(/(\d+\.\s+[A-Z\s]+)/g, '\n\n$1\n')
+    .replace(/\n{3,}/g, '\n\n')
+    .replace(/[ ]{2,}/g, ' ')
     .trim()
 }

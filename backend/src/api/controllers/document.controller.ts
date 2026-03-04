@@ -51,7 +51,7 @@ export const documentController = {
         await documentRepository.updateStatus(docId, 'ready', chunkCount)
         logger.info({ docId, chunkCount }, 'Ingestion complete')
       } catch (error) {
-        console.error('INGESTION ERROR:', error) 
+        
         await documentRepository.updateStatus(docId, 'failed')
         logger.error({ docId, error: error instanceof Error ? error.message : String(error) }, 'Ingestion failed')
       } finally {

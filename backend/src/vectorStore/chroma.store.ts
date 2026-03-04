@@ -50,7 +50,7 @@ export class ChromaStore implements IVectorStore {
     return results.ids[0].map((id, i) => ({
       id,
       text: results.documents[0][i] ?? '',
-      score: 1 - (results.distances?.[0][i] ?? 0),
+      score: 1 / (1 + (results.distances?.[0][i] ?? 0)),
       metadata: results.metadatas?.[0][i] as Record<string, any> ?? {}
     }))
   }
