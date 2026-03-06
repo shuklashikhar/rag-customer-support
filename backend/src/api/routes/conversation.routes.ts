@@ -1,20 +1,13 @@
 import { Router } from 'express'
+import { conversationController } from '../controllers/conversation.controller'
 import { authenticate } from '../middlewares/authenticate.middleware'
 
 const router = Router()
 
 router.use(authenticate)
 
-router.get('/', (req, res) => {
-  res.json({ success: true, message: 'list conversations - coming soon' })
-})
-
-router.get('/:id', (req, res) => {
-  res.json({ success: true, message: 'get conversation - coming soon' })
-})
-
-router.delete('/:id', (req, res) => {
-  res.json({ success: true, message: 'delete conversation - coming soon' })
-})
+router.get('/', conversationController.list)
+router.get('/:id', conversationController.getOne)
+router.delete('/:id', conversationController.delete)
 
 export default router

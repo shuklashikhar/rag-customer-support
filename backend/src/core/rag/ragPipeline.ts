@@ -19,7 +19,7 @@ export class RAGPipeline {
   async streamResponse(
     query: string,
     res: Response
-  ): Promise<RetrievedChunk[]> {
+  ): Promise<{chunks: RetrievedChunk[], fullAnswer: string}> {
 
     // 1. Set SSE headers
     res.setHeader('Content-Type', 'text/event-stream')
@@ -45,7 +45,7 @@ export class RAGPipeline {
 
       res.write(`data: ${JSON.stringify({ type: 'done' })}\n\n`)
       res.end()
-      return parsed.chunks
+      return {chunks: parsed.chunks, fullAnswer: parsed.answer}
     }
 
     // 3. Retrieve relevant chunks
@@ -78,6 +78,5 @@ export class RAGPipeline {
     }))
 
     logger.info('RAG response complete')
-    return chunks
+    return {chunks, fullAnswer}}
   }
-}
