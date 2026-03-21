@@ -8,6 +8,7 @@
     "start": "node dist/server.js",
     "test": "jest --coverage",
     "lint": "eslint src --ext .ts",
+    "postinstall": "prisma generate",
     "db:migrate": "prisma migrate dev",
     "db:generate": "prisma generate",
     "db:studio": "prisma studio"
