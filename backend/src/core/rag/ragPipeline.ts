@@ -27,7 +27,8 @@ export class RAGPipeline {
     res.setHeader('Connection', 'keep-alive')
     res.flushHeaders()
 
-    // 2. Check cache
+    try {
+      // 2. Check cache
     const cacheKey = redisCache.buildKey(query)
     const cached = await redisCache.get(cacheKey)
 
@@ -78,5 +79,14 @@ export class RAGPipeline {
     }))
 
     logger.info('RAG response complete')
-    return {chunks, fullAnswer}}
+    return {chunks, fullAnswer}
+    } catch (error) {
+    // If headers already sent, send error via SSE instead
+    const message = error instanceof Error ? error.message : 'Something went wrong'
+    res.write(`data: ${JSON.stringify({ type: 'error', message })}\n\n`)
+    res.end()
+    return { chunks: [], fullAnswer: '' }
+  }
+
+}
   }

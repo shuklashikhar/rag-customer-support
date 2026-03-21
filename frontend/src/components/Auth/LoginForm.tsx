@@ -13,12 +13,13 @@ export const LoginForm = () => {
 
   return (
     <div style={{
-      minHeight: '100vh',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      backgroundColor: '#0f0f1a'
-    }}>
+  minHeight: '100vh',
+  width: '100vw',          // add this
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  backgroundColor: '#0f0f1a'
+}}>
       <div style={{
         backgroundColor: '#1a1a2e',
         padding: '40px',

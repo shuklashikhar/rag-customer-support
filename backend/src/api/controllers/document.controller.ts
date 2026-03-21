@@ -2,13 +2,13 @@ import type { Request, Response } from 'express'
 import { v4 as uuidv4 } from 'uuid'
 import fs from 'fs'
 import { IngestionPipeline } from '../../ingestion/ingestionPipeline'
-import { OllamaEmbedder } from '../../core/embeddings/ollama.embedder'
+import { NomicEmbedder } from '../../core/embeddings/nomic.embedder'
 import { ChromaStore } from '../../vectorStore/chroma.store'
 import { documentRepository } from '../../db/repositories/document.repository'
 import { AppError } from '../middlewares/errorHandler.middleware'
 import { logger } from '../../utils/logger'
 
-const embedder = new OllamaEmbedder()
+const embedder = new NomicEmbedder()
 const vectorStore = new ChromaStore()
 const ingestionPipeline = new IngestionPipeline(embedder, vectorStore)
 

@@ -1,16 +1,16 @@
 import type { Request, Response } from 'express'
 import { RAGPipeline } from '../../core/rag/ragPipeline'
 import { Retriever } from '../../core/rag/retriever'
-import { OllamaEmbedder } from '../../core/embeddings/ollama.embedder'
-import { OllamaLLM } from '../../core/llm/ollama.llm'
+import { NomicEmbedder } from '../../core/embeddings/nomic.embedder'
+import { GroqLLM } from '../../core/llm/groq.llm'
 import { ChromaStore } from '../../vectorStore/chroma.store'
 import { conversationRepository } from '../../db/repositories/conversation.repository'
 import { messageRepository } from '../../db/repositories/message.repository'
 import { logger } from '../../utils/logger'
 
-const embedder = new OllamaEmbedder()
+const embedder = new NomicEmbedder()
 const vectorStore = new ChromaStore()
-const llm = new OllamaLLM()
+const llm = new GroqLLM()
 const retriever = new Retriever(embedder, vectorStore)
 const ragPipeline = new RAGPipeline(retriever, llm)
 

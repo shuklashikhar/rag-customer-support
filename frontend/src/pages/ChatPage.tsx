@@ -14,12 +14,35 @@ export const ChatPage = () => {
   }, [messages])
 
   return (
-    <div style={{ height: '100vh', display: 'flex', flexDirection: 'column', backgroundColor: '#0f0f1a' }}>
+    <div style={{
+      height: '100vh',
+      width: '100vw',              // add this
+      display: 'flex',
+      flexDirection: 'column',
+      backgroundColor: '#0f0f1a',
+      overflow: 'hidden'           // add this
+    }}>
       <Header />
-      <div style={{ flex: 1, display: 'flex', overflow: 'hidden' }}>
+      <div style={{
+        flex: 1,
+        display: 'flex',
+        overflow: 'hidden',
+        width: '100%'              // add this
+      }}>
         <ConversationSidebar />
-        <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
-          <div style={{ flex: 1, overflowY: 'auto', padding: '24px' }}>
+        <div style={{
+          flex: 1,
+          display: 'flex',
+          flexDirection: 'column',
+          minWidth: 0,             // add this — fixes flex child width collapse
+          width: '100%'            // add this
+        }}>
+          <div style={{
+            flex: 1,
+            overflowY: 'auto',
+            padding: '24px',
+            width: '100%'          // add this
+          }}>
             {messages.length === 0 && (
               <div style={{
                 display: 'flex',
