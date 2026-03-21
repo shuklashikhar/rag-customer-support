@@ -54,4 +54,25 @@ router.get('/', async (req, res) => {
   })
 })
 
+router.get('/test-nomic', async (req, res) => {
+  try {
+    const response = await fetch('https://api-atlas.nomic.ai/v1/embedding/text', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${process.env.NOMIC_API_KEY}`
+      },
+      body: JSON.stringify({
+        texts: ['test'],
+        model: 'nomic-embed-text-v1.5',
+        task_type: 'search_document'
+      })
+    })
+    const data = await response.json()
+    res.json({ success: response.ok, status: response.status, data })
+  } catch (err: any) {
+    res.json({ success: false, error: err.message })
+  }
+})
+
 export default router
