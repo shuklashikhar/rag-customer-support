@@ -30,24 +30,24 @@ export class RAGPipeline {
     try {
       // 2. Check cache
     const cacheKey = redisCache.buildKey(query)
-    const cached = await redisCache.get(cacheKey)
+    // const cached = await redisCache.get(cacheKey)
 
-    if (cached) {
-      logger.info('Cache hit')
-      const parsed = JSON.parse(cached)
+    // if (cached) {
+    //   logger.info('Cache hit')
+    //   const parsed = JSON.parse(cached)
 
-      // Send cached sources
-      res.write(`data: ${JSON.stringify({ type: 'sources', chunks: parsed.chunks })}\n\n`)
+    //   // Send cached sources
+    //   res.write(`data: ${JSON.stringify({ type: 'sources', chunks: parsed.chunks })}\n\n`)
 
-      // Send cached answer token by token
-      for (const char of parsed.answer) {
-        res.write(`data: ${JSON.stringify({ type: 'token', content: char })}\n\n`)
-      }
+    //   // Send cached answer token by token
+    //   for (const char of parsed.answer) {
+    //     res.write(`data: ${JSON.stringify({ type: 'token', content: char })}\n\n`)
+    //   }
 
-      res.write(`data: ${JSON.stringify({ type: 'done' })}\n\n`)
-      res.end()
-      return {chunks: parsed.chunks, fullAnswer: parsed.answer}
-    }
+    //   res.write(`data: ${JSON.stringify({ type: 'done' })}\n\n`)
+    //   res.end()
+    //   return {chunks: parsed.chunks, fullAnswer: parsed.answer}
+    // }
 
     // 3. Retrieve relevant chunks
     const chunks = await this.retriever.retrieve(query, 4)
@@ -73,10 +73,10 @@ export class RAGPipeline {
     res.end()
 
     // 8. Cache the result
-    await redisCache.set(cacheKey, JSON.stringify({
-      answer: fullAnswer,
-      chunks
-    }))
+    // await redisCache.set(cacheKey, JSON.stringify({
+    //   answer: fullAnswer,
+    //   chunks
+    // }))
 
     logger.info('RAG response complete')
     return {chunks, fullAnswer}
