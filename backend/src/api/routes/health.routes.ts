@@ -75,4 +75,16 @@ router.get('/test-nomic', async (req, res) => {
   }
 })
 
+router.get('/test-chroma', async (req, res) => {
+  try {
+    const response = await fetch(
+      `${process.env.CHROMA_URL}/api/v2/tenants/default_tenant`
+    )
+    const data = await response.json()
+    res.json({ success: response.ok, status: response.status, data, url: process.env.CHROMA_URL })
+  } catch (err: any) {
+    res.json({ success: false, error: err.message, url: process.env.CHROMA_URL })
+  }
+})
+
 export default router
